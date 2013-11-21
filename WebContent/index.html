@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Jsonp Example</title>
+<script type="text/javascript" src="js/jquery-1.5.min.js"></script>
+</head>
+<body>
+	<button onclick="getData();">call REST API</button><br>
+	<div id="result"></div>
+
+	<script type="text/javascript">
+		function getData() {
+			myUrl = 'http://localhost:8080/SpringRestApi/vehicleDetails';
+			//myUrl = 'http://148.162.216.26:9090/dejdss/restapi/vehicle?name=bmw&value=dsd';
+			$.ajax({
+				type : 'GET',
+				url : myUrl,
+				//async : false,
+				//jsonpCallback: 'myFunc',
+				jsonpCallback: 'myCallBack',
+				contentType : 'appliaction/json',
+				dataType : 'JSONP',
+				data:{name:"BMW",value:"2131"},
+				//success : myFunction,
+				error : myFailureFunction
+			});
+		}
+
+		function myFunction(data) {
+			console.log("In myFunction()");
+			console.log(data);
+		}
+
+		function myCallBack(data) {
+			console.log("In myCallBack()");
+			console.log(data);
+			$("#result").innerHTML = data.vehicleName;
+		}
+
+		function myFailureFunction(data) {
+			console.log("In myFailureFunction()");
+			console.log(data);
+		}
+	</script>
+</body>
+</html>

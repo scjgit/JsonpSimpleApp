@@ -1,0 +1,1 @@
+This is simple application which shows how to call a REST api with jsonp.
