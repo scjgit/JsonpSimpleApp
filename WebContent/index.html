@@ -6,7 +6,11 @@
 <script type="text/javascript" src="js/jquery-1.5.min.js"></script>
 </head>
 <body>
-	<button onclick="getData();">call REST API</button><br>
+	<button onclick="getData();">call REST API</button>
+	<br>
+	<div id="restApiResult"></div>
+	<br><br>
+	<span>Server Sent Event Example</span>
 	<div id="result"></div>
 
 	<script type="text/javascript">
@@ -18,10 +22,13 @@
 				url : myUrl,
 				//async : false,
 				//jsonpCallback: 'myFunc',
-				jsonpCallback: 'myCallBack',
+				jsonpCallback : 'myCallBack',
 				contentType : 'appliaction/json',
 				dataType : 'JSONP',
-				data:{name:"BMW",value:"2131"},
+				data : {
+					name : "BMW",
+					value : "2131"
+				},
 				//success : myFunction,
 				error : myFailureFunction
 			});
@@ -35,13 +42,45 @@
 		function myCallBack(data) {
 			console.log("In myCallBack()");
 			console.log(data);
-			$("#result").innerHTML = data.vehicleName;
+			$("#restApiResult").text(data.vehicleName);
 		}
 
 		function myFailureFunction(data) {
 			console.log("In myFailureFunction()");
 			console.log(data);
 		}
+	</script>
+
+	<script type="text/javascript">
+
+	/**SSE Example - Start**/
+		if (typeof (EventSource) !== "undefined") {
+			var source = new EventSource("getServerData");
+			
+			/**What to do when a connection is opened*/
+			source.onopen = function(event){
+				//console.log("Connection Opened");
+				//console.log(event);
+				//$("#result").text("Message Type : "+event.type+" ,Time : "+event.timeStamp);
+			};
+			
+			/**What to do when data is received*/
+			source.onmessage = function(event) {
+				//console.log("Message Recieved: ");console.log(event);
+				$("#result").text("Message Type : "+event.type+" :: "+event.data);
+			};
+			
+			/**What to do when an error is thrown*/
+			source.onerror = function(message){
+				//console.log("Error Recieved: ");console.log(message);
+				//$("#result").text("Message Type : "+message.type+" ,Time : "+new Date(message.timeStamp));
+			};
+			
+		} else {
+			$("#result").text("Sorry, your browser does not support server-sent events...");
+		}
+	/**SSE Example - End**/
+	
 	</script>
 </body>
 </html>
