@@ -1,1 +1,1 @@
-This is simple application which shows how to call a REST api with jsonp.
+This is simple application which shows how to call a REST api with jsonp and how to implement SSE with servlet.
