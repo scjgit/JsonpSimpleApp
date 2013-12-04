@@ -6,7 +6,8 @@
 <script type="text/javascript" src="js/jquery-1.5.min.js"></script>
 </head>
 <body>
-	<button onclick="getData();">call REST API</button>
+	<button onclick="getJsonpData();">call REST API using JSONP (GET)</button>
+	<button onclick="getData();">call REST API (POST)</button>
 	<br>
 	<div id="restApiResult"></div>
 	<br><br>
@@ -14,28 +15,52 @@
 	<div id="result"></div>
 
 	<script type="text/javascript">
+	 // $.support.cors = true;
+	 
+	  	function getJsonpData() {
+            myUrl = 'http://10.155.177.54:8080/SpringRestApi/vehicleDetails';
+            //myUrl = 'http://148.162.216.26:9090/dejdss/restapi/vehicle?name=bmw&value=dsd';
+            $.ajax({
+                    type : 'GET',
+                    url : myUrl,
+                    jsonpCallback : 'myCallBack',
+                    contentType : 'appliaction/json',
+                    dataType : 'JSONP',
+                    data : {
+                            name : "BMW",
+                            value : "2131"
+                    },
+                    success : mySuccessFunction,
+                    error : myFailureFunction
+            });
+        }
+	 
 		function getData() {
-			myUrl = 'http://localhost:8080/SpringRestApi/vehicleDetails';
-			//myUrl = 'http://148.162.216.26:9090/dejdss/restapi/vehicle?name=bmw&value=dsd';
+			 var postData = JSON.stringify({data : { name: "BMW",value : "2131" }});
+			console.log(postData);
+			//myUrl = 'http://localhost:8080/JsonpTest/postData';
+			myUrl = 'http://10.155.177.54:8080/JsonpTest/postData';
 			$.ajax({
-				type : 'GET',
+				type : 'POST',
 				url : myUrl,
-				//async : false,
-				//jsonpCallback: 'myFunc',
-				jsonpCallback : 'myCallBack',
-				contentType : 'appliaction/json',
-				dataType : 'JSONP',
-				data : {
-					name : "BMW",
-					value : "2131"
-				},
-				//success : myFunction,
-				error : myFailureFunction
-			});
+				data : postData,
+				dataType : 'json',
+				contentType : 'application/json; charset=UTF-8',
+				//crossDomain : true,
+				success : mySuccessFunction,
+				error : myFailureFunction,
+				beforeSend : myBeforeSendfn
+			}); 
+			
 		}
 
-		function myFunction(data) {
-			console.log("In myFunction()");
+		function myBeforeSendfn(data) {
+			console.log("In myBeforeSendfn(): POST Data");
+			console.log(data);
+		}
+
+		function mySuccessFunction(data) {
+			console.log("In mySuccessFunction()");
 			console.log(data);
 		}
 

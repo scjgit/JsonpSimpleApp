@@ -35,5 +35,5 @@ public class ServerData extends HttpServlet {
 		response.getWriter().flush();
 		response.getWriter().close();
 	}
-
+	
 }

@@ -14,6 +14,14 @@
         	<servlet-name>serverData</servlet-name>
         	<url-pattern>/getServerData</url-pattern>
         </servlet-mapping>
+        <servlet>
+        	<servlet-name>postData</servlet-name>
+        	<servlet-class>src.servlet.PostData</servlet-class>
+        </servlet>
+        <servlet-mapping>
+        	<servlet-name>postData</servlet-name>
+        	<url-pattern>/postData</url-pattern>
+        </servlet-mapping>
         <!-- <listener> <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> 
                 </listener> -->
 </web-app>
