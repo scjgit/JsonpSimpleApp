@@ -38,8 +38,8 @@
 		function getData() {
 			 var postData = JSON.stringify({data : { name: "BMW",value : "2131" }});
 			console.log(postData);
-			//myUrl = 'http://localhost:8080/JsonpTest/postData';
-			myUrl = 'http://10.155.177.54:8080/JsonpTest/postData';
+			myUrl = 'http://localhost:8080/JsonpTest/postData';
+			//myUrl = 'http://10.155.177.54:8080/JsonpTest/postData';
 			$.ajax({
 				type : 'POST',
 				url : myUrl,

@@ -29,8 +29,6 @@ public class ServerData extends HttpServlet {
 		serverTime.setServerHour(date.getHours()+"");
 		serverTime.setServerMin(date.getMinutes()+"");
 		serverTime.setServerSec(date.getSeconds()+"");
-		
-		response.getWriter();
 		response.getWriter().write("data: " +serverTime.toString() + "\n\n");
 		response.getWriter().flush();
 		response.getWriter().close();

@@ -21,10 +21,15 @@ public class PostData extends HttpServlet{
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		//response.addHeader("Access-Control-Allow-Headers", "X-PINGOTHER");
 		//response.addHeader("Access-Control-Allow-Headers", "origin, x-requested-with, content-type, accept");
-        response.setContentType("application/json; charset=utf-8");
-        System.err.println(request.getAttribute("data"));
-        System.err.println(request.getParameter("data"));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
         System.err.println(getBody(request));
+        /*response.getWriter().write(getBody(request).toString());
+        response.getWriter().flush();
+		response.getWriter().close();*/
+		response.getOutputStream().write(getBody(request).getBytes());
+		response.getOutputStream().flush();
+		response.getOutputStream().close();
 	}
 	
 	public void doOptions(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -32,8 +37,6 @@ public class PostData extends HttpServlet{
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.addHeader("Access-Control-Allow-Headers", "x-requested-with,content-type");
 		response.setContentType("application/json; charset=utf-8");
-		response.getWriter().flush();
-		response.getWriter().close();
 	}
 	
 	public static String getBody(HttpServletRequest request) throws IOException {
