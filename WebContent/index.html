@@ -91,9 +91,13 @@
 			
 			/**What to do when data is received*/
 			source.onmessage = function(event) {
-				//console.log("Message Recieved: ");console.log(event);
-				$("#result").text("Message Type : "+event.type+" :: "+event.data);
+				console.log("Message Recieved: ");console.log(event);
+				$("#result").append("Message Type : "+event.type+" :: "+event.data);
 			};
+			
+			source.addEventListener('ServerTime', function(e){
+				$("#result").text("Message Type : "+e.type+" :: "+e.data);
+			});
 			
 			/**What to do when an error is thrown*/
 			source.onerror = function(message){
